@@ -15,12 +15,14 @@ AnalogClock::AnalogClock(QWidget *parent)
 
 void AnalogClock::paintEvent(QPaintEvent *)
 {
-    static const QPoint hourHand[3] = {
+    static const QPoint hourHand[3] =
+    {
         QPoint(7, 8),
         QPoint(-7, 8),
         QPoint(0, -40)
     };
-    static const QPoint minuteHand[3] = {
+    static const QPoint minuteHand[3] =
+    {
         QPoint(7, 8),
         QPoint(-7, 8),
         QPoint(0, -70)
