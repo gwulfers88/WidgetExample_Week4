@@ -10,7 +10,7 @@ AnalogClock::AnalogClock(QWidget *parent)
     timer->start(1000);
 
     setWindowTitle(tr("Analog Clock"));
-    resize(200, 200);
+    resize(1024, 768);
 }
 
 void AnalogClock::paintEvent(QPaintEvent *)
@@ -28,9 +28,16 @@ void AnalogClock::paintEvent(QPaintEvent *)
         QPoint(0, -70)
     };
 
+    static const QPoint secondsHand[3] =
+    {
+        QPoint(2, 4),
+        QPoint(-2, 4),
+        QPoint(0, -90),
+    };
 
     QColor hourColor(127, 0, 127);
     QColor minuteColor(0, 127, 127, 191);
+    QColor secondsColor(255, 0, 0, 255);
 
     int side = qMin(width(), height());
     QTime time = QTime::currentTime();
@@ -73,4 +80,14 @@ void AnalogClock::paintEvent(QPaintEvent *)
         painter.rotate(6.0);
     }
 
+    //Seconds hand
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(secondsColor);
+
+    painter.save();
+    painter.rotate(6.0 * (time.second()));
+    painter.drawConvexPolygon(secondsHand, 3);
+    painter.restore();
+
+    setWindowTitle("AnalogClock (" + QString::number(time.hour()) + " : " + QString::number(time.minute()) + " : " + QString::number(time.second()) + ")");
 }
